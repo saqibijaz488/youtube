@@ -10,7 +10,7 @@ const HomeBanner = () => {
       <div className="space-y-5">
         <Title>
           Grab Upto 50% off on <br />
-          Selected headphone
+          Selected Shirts
         </Title>
         <Link
           href={"/shop"}

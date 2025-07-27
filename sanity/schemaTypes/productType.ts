@@ -44,13 +44,13 @@ export const productType = defineType({
       name: "discount",
       title: "Discount",
       type: "number",
-      validation: (Rule) => Rule.required().min(0),
+      validation: (Rule) => Rule.min(0),
     }),
     defineField({
       name: "categories",
       title: "Categories",
       type: "array",
-      of: [{ type: "reference", to: { type: "category" } }],
+      of: [{ type: "reference", to: [{ type: "category" }] }],
     }),
     defineField({
       name: "stock",
@@ -62,9 +62,8 @@ export const productType = defineType({
       name: "brand",
       title: "Brand",
       type: "reference",
-      to: { type: "brand" },
+      to: [{ type: "brand" }], // ✅ FIXED (array hona chahiye)
     }),
-
     defineField({
       name: "status",
       title: "Product Status",
@@ -83,9 +82,9 @@ export const productType = defineType({
       type: "string",
       options: {
         list: [
-          { title: "Gadget", value: "gadget" },
-          { title: "Appliances", value: "appliances" },
-          { title: "Refrigerators", value: "refrigerators" },
+          { title: "Mens", value: "mens" },
+          { title: "Women", value: "women" },
+          { title: "Kids", value: "kids" },
           { title: "Others", value: "others" },
         ],
       },
@@ -101,16 +100,15 @@ export const productType = defineType({
   preview: {
     select: {
       title: "name",
-      media: "images",
+      media: "images.0", // ✅ Sirf pehla image preview ke liye select karega
       subtitle: "price",
     },
     prepare(selection) {
       const { title, subtitle, media } = selection;
-      const image = media && media[0];
       return {
-        title: title,
+        title,
         subtitle: `$${subtitle}`,
-        media: image,
+        media,
       };
     },
   },
