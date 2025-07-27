@@ -7,6 +7,7 @@ import CartIcon from "./CartIcon";
 import FavoriteButton from "./FavoriteButton";
 import Link from "next/link";
 import { Logs } from "lucide-react";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface HeaderClientProps {
   user: {
@@ -25,6 +26,7 @@ const HeaderClient = ({ user, orders }: HeaderClientProps) => {
       <SearchBar />
       <CartIcon />
       <FavoriteButton />
+      <LanguageSwitcher />
 
       {user && (
         <Link

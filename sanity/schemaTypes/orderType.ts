@@ -109,6 +109,18 @@ export const orderType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "paymentMethod",
+      title: "Payment Method",
+      type: "string",
+      options: {
+        list: [
+          { title: "Stripe", value: "stripe" },
+          { title: "Cash on Delivery", value: "cod" },
+        ],
+      },
+      initialValue: "stripe",
+    }),
+    defineField({
       name: "amountDiscount",
       title: "Amount Discount",
       type: "number",

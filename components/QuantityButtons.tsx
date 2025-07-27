@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Product } from "@/sanity.types";
 import useStore from "@/store";
 import React from "react";
@@ -11,6 +12,7 @@ interface Props {
   className?: string;
 }
 const QuantityButtons = ({ product, className }: Props) => {
+  const t = useTranslations();
   const { addItem, removeItem, getItemCount } = useStore();
   const itemCount = getItemCount(product?._id);
   const isOutOfStock = product?.stock === 0;
@@ -18,18 +20,18 @@ const QuantityButtons = ({ product, className }: Props) => {
   const handleRemoveProduct = () => {
     removeItem(product?._id);
     if (itemCount > 1) {
-      toast.success("Quantity Decreased successfully!");
+      toast.success(t('errors.quantityDecreased'));
     } else {
-      toast.success(`${product?.name?.substring(0, 12)} removed successfully!`);
+      toast.success(t('errors.productRemoved'));
     }
   };
 
   const handleAddToCart = () => {
     if ((product?.stock as number) > itemCount) {
       addItem(product);
-      toast.success("Quantity Increased successfully!");
+      toast.success(t('errors.quantityIncreased'));
     } else {
-      toast.error("Can not add more than available stock");
+      toast.error(t('errors.cannotAddMore'));
     }
   };
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import useStore from "@/store";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
@@ -8,9 +9,11 @@ import { Check, Home, Package, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 
 const SuccessPageContent = () => {
+  const t = useTranslations();
   const { resetCart } = useStore();
   const searchParams = useSearchParams();
   const orderNumber = searchParams.get("orderNumber");
+  const paymentMethod = searchParams.get("paymentMethod");
 
   useEffect(() => {
     if (orderNumber) {
@@ -34,27 +37,35 @@ const SuccessPageContent = () => {
           <Check className="text-white w-10 h-10" />
         </motion.div>
 
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          Order Confirmed!
+        <h1 className="text-3xl font-bold text-gray-900 mb-4 text-vilnius-primary">
+          {t('success.orderConfirmed')}
         </h1>
         <div className="space-y-4 mb-4 text-left">
           <p className="text-gray-700">
-            Thank you for your purchase. We&apos;re processing your order and
-            will ship it soon. A confirmation email with your order details will
-            be sent to your inbox shortly.
+            {paymentMethod === 'cod' 
+              ? t('success.thankYouCod') 
+              : t('success.thankYou')
+            }
           </p>
           <p className="text-gray-700">
-            Order Number:{" "}
+            {t('success.orderNumber')}:{" "}
             <span className="text-black font-semibold">{orderNumber}</span>
           </p>
+          {paymentMethod === 'cod' && (
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+              <p className="text-amber-800 text-sm font-medium">
+                {t('success.codNote')}
+              </p>
+            </div>
+          )}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Link
             href="/"
-            className="flex items-center justify-center px-4 py-3 font-semibold bg-black text-white rounded-lg hover:bg-gray-800 transition-all duration-300 shadow-md"
+            className="flex items-center justify-center px-4 py-3 font-semibold bg-vilnius-primary text-white rounded-lg hover:bg-vilnius-primary/90 transition-all duration-300 shadow-md"
           >
             <Home className="w-5 h-5 mr-2" />
-            Home
+            {t('success.home')}
           </Link>
           <Link
             href="/orders"
@@ -63,12 +74,17 @@ const SuccessPageContent = () => {
             <Package className="w-5 h-5 mr-2" />
             Orders
           </Link>
+            className="flex items-center justify-center px-4 py-3 font-semibold bg-lightGreen text-black border border-lightGreen rounded-lg hover:bg-gray-100 transition-all duration-300 shadow-md"
+          >
+            <Package className="w-5 h-5 mr-2" />
+            {t('success.orders')}
+          </Link>
           <Link
-            href="/"
-            className="flex items-center justify-center px-4 py-3 font-semibold bg-black text-white rounded-lg hover:bg-gray-800 transition-all duration-300 shadow-md"
+            href="/shop"
+            className="flex items-center justify-center px-4 py-3 font-semibold bg-vilnius-primary text-white rounded-lg hover:bg-vilnius-primary/90 transition-all duration-300 shadow-md"
           >
             <ShoppingBag className="w-5 h-5 mr-2" />
-            Shop
+            {t('success.shop')}
           </Link>
         </div>
       </motion.div>

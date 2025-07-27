@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 import { Product } from "@/sanity.types";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const AddToCartButton = ({ product, className }: Props) => {
+  const t = useTranslations();
   const { addItem, getItemCount } = useStore();
   const itemCount = getItemCount(product?._id);
   const isOutOfStock = product?.stock === 0;
@@ -21,11 +23,9 @@ const AddToCartButton = ({ product, className }: Props) => {
   const handleAddToCart = () => {
     if ((product?.stock as number) > itemCount) {
       addItem(product);
-      toast.success(
-        `${product?.name?.substring(0, 12)}... added successfully!`
-      );
+      toast.success(t('errors.productAdded'));
     } else {
-      toast.error("Can not add more than available stock");
+      toast.error(t('errors.cannotAddMore'));
     }
   };
   return (
@@ -33,11 +33,11 @@ const AddToCartButton = ({ product, className }: Props) => {
       {itemCount ? (
         <div className="text-sm w-full">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-darkColor/80">Quantity</span>
+            <span className="text-xs text-darkColor/80">{t('product.quantity')}</span>
             <QuantityButtons product={product} />
           </div>
           <div className="flex items-center justify-between border-t pt-1">
-            <span className="text-xs font-semibold">Subtotal</span>
+            <span className="text-xs font-semibold">{t('product.subtotal')}</span>
             <PriceFormatter
               amount={product?.price ? product?.price * itemCount : 0}
             />
@@ -52,7 +52,7 @@ const AddToCartButton = ({ product, className }: Props) => {
             className
           )}
         >
-          <ShoppingBag /> {isOutOfStock ? "Out of Stock" : "Add to Cart"}
+          <ShoppingBag /> {isOutOfStock ? t('product.outOfStock') : t('product.addToCart')}
         </Button>
       )}
     </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslations } from "next-intl";
 import Container from "./Container";
 import FooterTop from "./FooterTop";
 import Logo from "./Logo";
@@ -10,6 +11,8 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
 const Footer = () => {
+  const t = useTranslations();
+  
   return (
     <footer className="bg-white border-t">
       <Container>
@@ -18,8 +21,7 @@ const Footer = () => {
           <div className="space-y-4">
             <Logo />
             <SubText>
-              Discover curated furniture collections at Shopcartyt, blending
-              style and comfort to elevate your living spaces.
+              {t('footer.description')}
             </SubText>
             <SocialMedia
               className="text-darkColor/60"
@@ -28,7 +30,7 @@ const Footer = () => {
             />
           </div>
           <div>
-            <SubTitle>Quick Links</SubTitle>
+            <SubTitle>{t('footer.quickLinks')}</SubTitle>
             <ul className="space-y-3 mt-4">
               {quickLinksData?.map((item) => (
                 <li key={item?.title}>
@@ -43,7 +45,7 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <SubTitle>Categories</SubTitle>
+            <SubTitle>{t('footer.categories')}</SubTitle>
             <ul className="space-y-3 mt-4">
               {categoriesData?.map((item) => (
                 <li key={item?.title}>
@@ -58,21 +60,19 @@ const Footer = () => {
             </ul>
           </div>
           <div className="space-y-4">
-            <SubTitle>Newsletter</SubTitle>
+            <SubTitle>{t('footer.newsletter')}</SubTitle>
             <SubText>
-              Subscribe to our newsletter to receive updates and exclusive
-              offers
+              {t('footer.newsletterDescription')}
             </SubText>
             <form className="space-y-3">
-              <Input placeholder="Enter your email" type="email" required />
-              <Button className="w-full">Subscribe</Button>
+              <Input placeholder={t('footer.enterEmail')} type="email" required />
+              <Button className="w-full">{t('footer.subscribe')}</Button>
             </form>
           </div>
         </div>
         <div className="py-6 border-t text-center text-sm text-gray-600">
           <div>
-            © {new Date().getFullYear()} <Logo className="text-sm" />. All
-            rights reserved.
+            © {new Date().getFullYear()} <Logo className="text-sm" />. {t('footer.allRightsReserved')}.
           </div>
         </div>
       </Container>

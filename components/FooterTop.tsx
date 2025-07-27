@@ -1,4 +1,5 @@
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 interface ContactItemData {
@@ -39,6 +40,39 @@ const data: ContactItemData[] = [
 ];
 
 const FooterTop = () => {
+  const t = useTranslations('footer');
+  
+  const data: ContactItemData[] = [
+    {
+      title: t('visitUs'),
+      subtitle: t('location'),
+      icon: (
+        <MapPin className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
+      ),
+    },
+    {
+      title: t('callUs'),
+      subtitle: t('phone'),
+      icon: (
+        <Phone className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
+      ),
+    },
+    {
+      title: t('workingHours'),
+      subtitle: t('hours'),
+      icon: (
+        <Clock className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
+      ),
+    },
+    {
+      title: t('emailUs'),
+      subtitle: t('email'),
+      icon: (
+        <Mail className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
+      ),
+    },
+  ];
+  
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 border-b">
       {data?.map((item, index) => (
