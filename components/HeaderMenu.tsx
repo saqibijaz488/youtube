@@ -3,9 +3,11 @@ import { headerData } from "@/constants/data";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { useTranslations } from "next-intl"; // ✅ Translation hook add
 
 const HeaderMenu = () => {
   const pathname = usePathname();
+  const t = useTranslations("navigation"); // ✅ Use navigation.json keys
 
   return (
     <div className="hidden md:inline-flex w-1/3 items-center justify-center gap-7 text-sm capitalize font-semibold text-lightColor">
@@ -17,7 +19,9 @@ const HeaderMenu = () => {
             pathname === item?.href && "text-shop_light_green"
           }`}
         >
-          {item?.title}
+          {/* ✅ Translate title instead of hardcoding */}
+          {t(item?.title)}
+          
           <span
             className={`absolute -bottom-0.5 left-1/2 w-0 h-0.5 bg-shop_light_green group-hover:w-1/2 hoverEffect group-hover:left-0 ${
               pathname === item?.href && "w-1/2"

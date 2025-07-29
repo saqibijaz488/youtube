@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ClientWrapper from "../ClientWrapper";
+import ClientWrapper from "../../ClientWrapper";
 
 export const metadata: Metadata = {
   title: {

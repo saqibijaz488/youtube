@@ -1,3 +1,4 @@
+"use client";
 import React, { FC } from "react";
 import Logo from "./Logo";
 import { X } from "lucide-react";
@@ -6,6 +7,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SocialMedia from "./SocialMedia";
 import { useOutsideClick } from "@/hooks";
+import { useTranslations } from "next-intl";  // ✅ translation hook add kiya
+
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
@@ -14,6 +17,8 @@ interface SidebarProps {
 const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
   const pathname = usePathname();
   const sidebarRef = useOutsideClick<HTMLDivElement>(onClose);
+  const t = useTranslations("navigation"); // ✅ navigation section ke liye
+
   return (
     <div
       className={`fixed inset-y-0 h-screen left-0 z-50 w-full bg-black/50 text-white/70 shadow-xl ${
@@ -24,6 +29,7 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
         ref={sidebarRef}
         className="min-w-72 max-w-96 bg-black h-screen p-10 border-r border-r-shop_light_green flex flex-col gap-6"
       >
+        {/* 🔹 Logo + Close button */}
         <div className="flex items-center justify-between gap-5">
           <Logo className="text-white" spanDesign="group-hover:text-white" />
           <button
@@ -34,19 +40,22 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
           </button>
         </div>
 
+        {/* 🔹 Navigation Links */}
         <div className="flex flex-col space-y-3.5 font-semibold tracking-wide">
-          {headerData?.map((item) => (
+          {headerData.map((item) => (
             <Link
-              href={item?.href}
-              key={item?.title}
+              href={item.href}
+              key={item.title}
               className={`hover:text-shop_light_green hoverEffect ${
-                pathname === item?.href && "text-white"
+                pathname === item.href && "text-white"
               }`}
             >
-              {item?.title}
+              {t(item.title)} {/* ✅ JSON se translation fetch karega */}
             </Link>
           ))}
         </div>
+
+        {/* 🔹 Social Links */}
         <SocialMedia />
       </div>
     </div>

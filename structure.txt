@@ -1,0 +1,225 @@
+Folder PATH listing for volume New Volume
+Volume serial number is 049F-BEFC
+D:.
+³   .gitignore
+³   components.json
+³   eslint.config.mjs
+³   middleware.ts
+³   next.config.ts
+³   package-lock.json
+³   package.json
+³   postcss.config.mjs
+³   README.md
+³   sanity.cli.ts
+³   sanity.config.ts
+³   sanity.types.ts
+³   schema.json
+³   seed.tar.gz
+³   store.ts
+³   structure.txt
+³   tsconfig.json
+³   
+ÃÄÄÄactions
+³       createCheckoutSession.ts
+³       
+ÃÄÄÄapp
+³   ³   ClientWrapper.tsx
+³   ³   favicon.ico
+³   ³   globals.css
+³   ³   layout.tsx
+³   ³   not-found.tsx
+³   ³   
+³   ÃÄÄÄ(client)
+³   ³   ³   layout.tsx
+³   ³   ³   page.tsx
+³   ³   ³   
+³   ³   ÃÄÄÄapi
+³   ³   ³   ÀÄÄÄwebhook
+³   ³   ³           route.ts
+³   ³   ³           
+³   ³   ÃÄÄÄblog
+³   ³   ³   ³   page.tsx
+³   ³   ³   ³   
+³   ³   ³   ÀÄÄÄ[slug]
+³   ³   ³           page.tsx
+³   ³   ³           
+³   ³   ÃÄÄÄbrand
+³   ³   ³   ÀÄÄÄ[slug]
+³   ³   ³           page.tsx
+³   ³   ³           
+³   ³   ÃÄÄÄcart
+³   ³   ³       page.tsx
+³   ³   ³       
+³   ³   ÃÄÄÄcategory
+³   ³   ³   ÀÄÄÄ[slug]
+³   ³   ³           page.tsx
+³   ³   ³           
+³   ³   ÃÄÄÄdeal
+³   ³   ³       page.tsx
+³   ³   ³       
+³   ³   ÃÄÄÄorders
+³   ³   ³       page.tsx
+³   ³   ³       
+³   ³   ÃÄÄÄproduct
+³   ³   ³   ÀÄÄÄ[slug]
+³   ³   ³           page.tsx
+³   ³   ³           
+³   ³   ÃÄÄÄshop
+³   ³   ³       page.tsx
+³   ³   ³       
+³   ³   ÃÄÄÄsuccess
+³   ³   ³       page.tsx
+³   ³   ³       
+³   ³   ÀÄÄÄwishlist
+³   ³           page.tsx
+³   ³           
+³   ÀÄÄÄstudio
+³       ÀÄÄÄ[[...tool]]
+³               page.tsx
+³               
+ÃÄÄÄcomponents
+³   ³   AddToCartButton.tsx
+³   ³   CartIcon.tsx
+³   ³   CategoryProducts.tsx
+³   ³   Container.tsx
+³   ³   EmptyCart.tsx
+³   ³   FavoriteButton.tsx
+³   ³   Footer.tsx
+³   ³   FooterTop.tsx
+³   ³   Header.tsx
+³   ³   HeaderClient.tsx
+³   ³   HeaderMenu.tsx
+³   ³   HomeBanner.tsx
+³   ³   HomeCategories.tsx
+³   ³   HomeTabbar.tsx
+³   ³   ImageView.tsx
+³   ³   LatestBlog.tsx
+³   ³   Logo.tsx
+³   ³   MobileMenu.tsx
+³   ³   NoAccess.tsx
+³   ³   NoProductAvailable.tsx
+³   ³   OrderDetailDialog.tsx
+³   ³   OrdersComponent.tsx
+³   ³   PriceFormatter.tsx
+³   ³   PriceView.tsx
+³   ³   ProductCard.tsx
+³   ³   ProductCharacteristics.tsx
+³   ³   ProductGrid.tsx
+³   ³   ProductSideMenu.tsx
+³   ³   QuantityButtons.tsx
+³   ³   SearchBar.tsx
+³   ³   Shop.tsx
+³   ³   ShopByBrands.tsx
+³   ³   SideMenu.tsx
+³   ³   SignIn.tsx
+³   ³   SocialMedia.tsx
+³   ³   Title.tsx
+³   ³   WishListProducts.tsx
+³   ³   
+³   ÃÄÄÄshop
+³   ³       BrandList.tsx
+³   ³       CategoryList.tsx
+³   ³       PriceList.tsx
+³   ³       
+³   ÀÄÄÄui
+³           accordion.tsx
+³           badge.tsx
+³           button.tsx
+³           card.tsx
+³           carousel.tsx
+³           checkbox.tsx
+³           collapsible.tsx
+³           command.tsx
+³           dialog.tsx
+³           input.tsx
+³           label.tsx
+³           popover.tsx
+³           radio-group.tsx
+³           scroll-area.tsx
+³           separator.tsx
+³           table.tsx
+³           text.tsx
+³           textarea.tsx
+³           tooltip.tsx
+³           
+ÃÄÄÄconstants
+³       data.ts
+³       
+ÃÄÄÄhooks
+³       index.ts
+³       
+ÃÄÄÄimages
+³   ³   emptyCart.png
+³   ³   index.ts
+³   ³   payment.png
+³   ³   paypalLogo.png
+³   ³   
+³   ÃÄÄÄbanner
+³   ³       banner_1.png
+³   ³       
+³   ÃÄÄÄbrands
+³   ³       brand_1.webp
+³   ³       brand_2.jpg
+³   ³       brand_3.png
+³   ³       brand_4.png
+³   ³       brand_5.png
+³   ³       brand_6.png
+³   ³       brand_7.png
+³   ³       brand_8.png
+³   ³       
+³   ÀÄÄÄproducts
+³           product_1.png
+³           product_10.png
+³           product_11.png
+³           product_12.png
+³           product_13.png
+³           product_14.png
+³           product_15.png
+³           product_16.png
+³           product_17.png
+³           product_18.png
+³           product_19.png
+³           product_2.jpg
+³           product_20.png
+³           product_21.png
+³           product_22.png
+³           product_23.png
+³           product_3.png
+³           product_4.png
+³           product_5.png
+³           product_6.png
+³           product_7.png
+³           product_8.png
+³           product_9.png
+³           
+ÃÄÄÄlib
+³       stripe.ts
+³       utils.ts
+³       
+ÀÄÄÄsanity
+    ³   env.ts
+    ³   structure.ts
+    ³   
+    ÃÄÄÄlib
+    ³       backendClient.ts
+    ³       client.ts
+    ³       image.ts
+    ³       live.ts
+    ³       
+    ÃÄÄÄqueries
+    ³       index.ts
+    ³       query.ts
+    ³       
+    ÀÄÄÄschemaTypes
+            addressType.ts
+            authorType.ts
+            blockContentType.ts
+            blogCategoryType.ts
+            blogType.ts
+            brandType.ts
+            categoryType.ts
+            index.ts
+            orderType.ts
+            postType.ts
+            productType.ts
+            

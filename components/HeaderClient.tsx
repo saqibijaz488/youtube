@@ -7,6 +7,7 @@ import CartIcon from "./CartIcon";
 import FavoriteButton from "./FavoriteButton";
 import Link from "next/link";
 import { Logs } from "lucide-react";
+import LanguageSwitcher from "./LanguageSwitcher";  // ✅ NEW IMPORT
 
 interface HeaderClientProps {
   user: {
@@ -26,6 +27,7 @@ const HeaderClient = ({ user, orders }: HeaderClientProps) => {
       <CartIcon />
       <FavoriteButton />
 
+      {/* ✅ Orders Button */}
       {user && (
         <Link
           href={"/orders"}
@@ -38,6 +40,10 @@ const HeaderClient = ({ user, orders }: HeaderClientProps) => {
         </Link>
       )}
 
+      {/* ✅ Language Switcher Button Add Here */}
+      <LanguageSwitcher />
+
+      {/* ✅ Clerk Authentication Buttons */}
       <ClerkLoaded>
         <SignedIn>
           <UserButton />
