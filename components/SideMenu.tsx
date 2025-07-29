@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 import SocialMedia from "./SocialMedia";
 import { useOutsideClick } from "@/hooks";
 import { useTranslations } from "next-intl";  // ✅ translation hook add kiya
+import LanguageSwitcher from "./LanguageSwitcher";
+
 
 interface SidebarProps {
   isOpen: boolean;
@@ -25,6 +27,7 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
         isOpen ? "translate-x-0" : "-translate-x-full"
       } hoverEffect`}
     >
+      
       <div
         ref={sidebarRef}
         className="min-w-72 max-w-96 bg-black h-screen p-10 border-r border-r-shop_light_green flex flex-col gap-6"
@@ -39,7 +42,10 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
             <X />
           </button>
         </div>
-
+        {/* ✅ Mobile pe Language Switcher show */}
+  <div className="mt-4 ml-1">
+    <LanguageSwitcher />
+  </div>
         {/* 🔹 Navigation Links */}
         <div className="flex flex-col space-y-3.5 font-semibold tracking-wide">
           {headerData.map((item) => (
@@ -53,6 +59,7 @@ const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
               {t(item.title)} {/* ✅ JSON se translation fetch karega */}
             </Link>
           ))}
+           
         </div>
 
         {/* 🔹 Social Links */}

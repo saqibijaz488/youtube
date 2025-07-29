@@ -1,35 +1,32 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
+import React from "react";
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({ className }: { className?: string }) => {
   const router = useRouter();
   const pathname = usePathname();
-
-  // ✅ Check current locale from URL
   const currentLocale = pathname.startsWith("/lt") ? "lt" : "en";
 
-  // ✅ Function to switch between English & Lithuanian
-  const switchLanguage = () => {
-    const newLocale = currentLocale === "en" ? "lt" : "en";
-
-    // ✅ Replace current locale in URL
+  const switchLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newLocale = event.target.value;
     let newPath;
     if (pathname.startsWith("/en") || pathname.startsWith("/lt")) {
       newPath = pathname.replace(/^\/(en|lt)/, `/${newLocale}`);
     } else {
       newPath = `/${newLocale}${pathname}`;
     }
-
     router.push(newPath);
   };
 
   return (
-    <button
-      onClick={switchLanguage}
-      className="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-sm rounded-md transition"
+    <select
+      value={currentLocale}
+      onChange={switchLanguage}
+      className={`w-20 h-8 rounded-md  bg-[#3b9c3c] text-white text-sm font-semibold px-2 focus:outline-none focus:ring-2 focus:ring-green-500 ${className}`}
     >
-      {currentLocale === "en" ? "🇬🇧 EN" : "🇱🇹 LT"}
-    </button>
+      <option value="en" className="text-black">EN</option>
+      <option value="lt" className="text-black">LT</option>
+    </select>
   );
 };
 

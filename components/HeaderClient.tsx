@@ -1,13 +1,11 @@
 "use client";
-
 import { ClerkLoaded, SignedIn, UserButton } from "@clerk/nextjs";
 import SignIn from "./SignIn";
-import SearchBar from "./SearchBar";
 import CartIcon from "./CartIcon";
 import FavoriteButton from "./FavoriteButton";
 import Link from "next/link";
 import { Logs } from "lucide-react";
-import LanguageSwitcher from "./LanguageSwitcher";  // ✅ NEW IMPORT
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface HeaderClientProps {
   user: {
@@ -23,7 +21,9 @@ interface HeaderClientProps {
 const HeaderClient = ({ user, orders }: HeaderClientProps) => {
   return (
     <div className="w-auto md:w-1/3 flex items-center justify-end gap-5">
-      <SearchBar />
+      {/* ✅ Language Switcher Desktop Only */}
+      <LanguageSwitcher className="hidden md:block" />
+
       <CartIcon />
       <FavoriteButton />
 
@@ -39,9 +39,6 @@ const HeaderClient = ({ user, orders }: HeaderClientProps) => {
           </span>
         </Link>
       )}
-
-      {/* ✅ Language Switcher Button Add Here */}
-      <LanguageSwitcher />
 
       {/* ✅ Clerk Authentication Buttons */}
       <ClerkLoaded>

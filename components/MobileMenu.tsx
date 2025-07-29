@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useTranslations } from "next-intl"; // ✅ Translation hook add kiya
 import SideMenu from "./SideMenu";
 
+
 const MobileMenu = () => {
   const t = useTranslations("navigation"); // ✅ Future proof - SideMenu ka text yahan se ayega
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -17,11 +18,12 @@ const MobileMenu = () => {
 
       {/* ✅ Sidebar */}
       <div className="md:hidden">
-        <SideMenu
-          isOpen={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
-        />
-      </div>
+  <SideMenu
+    isOpen={isSidebarOpen}
+    onClose={() => setIsSidebarOpen(false)}
+  />
+</div>
+
     </>
   );
 };
