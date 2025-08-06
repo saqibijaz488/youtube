@@ -20,6 +20,22 @@ export const addressType = defineType({
       type: "email",
     }),
     defineField({
+      name: "phone",
+      title: "Phone Number",
+      type: "string",
+      description: "Contact phone number for delivery",
+      validation: (Rule) => Rule.regex(/^\+?[0-9\s\-\(\)]{7,20}$/, {
+        name: "phoneNumber",
+        invert: false,
+      }).custom((phone: string | undefined) => {
+        if (!phone) return true; // Phone is optional
+        if (!phone.match(/^\+?[0-9\s\-\(\)]{7,20}$/)) {
+          return "Please enter a valid phone number";
+        }
+        return true;
+      }),
+    }),
+    defineField({
       name: "address",
       title: "Street Address",
       type: "string",

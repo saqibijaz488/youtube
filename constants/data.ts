@@ -27,6 +27,9 @@ export const productType = [
   { title: "Mens", value: "mens" },
   { title: "Women", value: "women" },
   { title: "Kids", value: "kids" },
+  { title: "Gadget", value: "gadget" },
+  { title: "Appliances", value: "appliances" },
+  { title: "Refrigerators", value: "refrigerators" },
   { title: "Others", value: "others" },
 ];
 

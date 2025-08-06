@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import PriceFormatter from "./PriceFormatter";
+import { useTranslations } from "next-intl";
 
 interface OrderDetailsDialogProps {
   order: MY_ORDERS_QUERYResult[number] | null;
@@ -26,38 +27,39 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
   isOpen,
   onClose,
 }) => {
+  const t = useTranslations("orders");
   if (!order) return null;
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="!max-w-4xl max-h-[90vh] overflow-y-scroll">
         <DialogHeader>
-          <DialogTitle>Order Details - {order?.orderNumber}</DialogTitle>
+          <DialogTitle>{t("orderDetails")} - {order?.orderNumber}</DialogTitle>
         </DialogHeader>
         <div className="mt-4">
           <p>
-            <strong>Customer:</strong> {order.customerName}
+            <strong>{t("customer")}:</strong> {order.customerName}
           </p>
           <p>
-            <strong>Email:</strong> {order.email}
+            <strong>{t("email")}:</strong> {order.email}
           </p>
           <p>
-            <strong>Date:</strong>{" "}
+            <strong>{t("date")}:</strong>{" "}
             {order.orderDate && new Date(order.orderDate).toLocaleDateString()}
           </p>
           <p>
-            <strong>Status:</strong>{" "}
+            <strong>{t("status")}:</strong>{" "}
             <span className="capitalize text-green-600 font-medium">
               {order.status}
             </span>
           </p>
           <p>
-            <strong>Invoice Number:</strong> {order?.invoice?.number}
+            <strong>{t("invoiceNumber")}:</strong> {order?.invoice?.number}
           </p>
           {order?.invoice && (
             <Button className="bg-transparent border text-darkColor/80 mt-2 hover:text-darkColor hover:border-darkColor hover:bg-darkColor/10 hoverEffect ">
               {order?.invoice?.hosted_invoice_url && (
                 <Link href={order?.invoice?.hosted_invoice_url} target="_blank">
-                  Download Invoice
+                  {t("downloadInvoice")}
                 </Link>
               )}
             </Button>
@@ -66,9 +68,9 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Product</TableHead>
-              <TableHead>Quantity</TableHead>
-              <TableHead>Price</TableHead>
+              <TableHead>{t("product")}</TableHead>
+              <TableHead>{t("quantity")}</TableHead>
+              <TableHead>{t("price")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -102,7 +104,7 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
           <div className="w-44 flex flex-col gap-1">
             {order?.amountDiscount !== 0 && (
               <div className="w-full flex items-center justify-between">
-                <strong>Discount: </strong>
+                <strong>{t("discount")}: </strong>
                 <PriceFormatter
                   amount={order?.amountDiscount}
                   className="text-black font-bold"
@@ -111,7 +113,7 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
             )}
             {order?.amountDiscount !== 0 && (
               <div className="w-full flex items-center justify-between">
-                <strong>Subtotal: </strong>
+                <strong>{t("subtotal")}: </strong>
                 <PriceFormatter
                   amount={
                     (order?.totalPrice as number) +
@@ -122,7 +124,7 @@ const OrderDetailDialog: React.FC<OrderDetailsDialogProps> = ({
               </div>
             )}
             <div className="w-full flex items-center justify-between">
-              <strong>Total: </strong>
+              <strong>{t("total")}: </strong>
               <PriceFormatter
                 amount={order?.totalPrice}
                 className="text-black font-bold"

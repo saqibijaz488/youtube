@@ -14,13 +14,15 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import OrderDetailDialog from "./OrderDetailDialog";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const OrdersComponent = ({ orders }: { orders: MY_ORDERS_QUERYResult }) => {
+  const t = useTranslations("orders");
   const [selectedOrder, setSelectedOrder] = useState<
     MY_ORDERS_QUERYResult[number] | null
   >(null);
   const handleDelete = () => {
-    toast.error("Delete method applied for Admin");
+    toast.error(t("deleteMethodForAdmin"));
   };
   return (
     <>
@@ -87,7 +89,7 @@ const OrdersComponent = ({ orders }: { orders: MY_ORDERS_QUERYResult }) => {
                 </TableRow>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Click to see order details</p>
+                <p>{t("clickToSeeOrderDetails")}</p>
               </TooltipContent>
             </Tooltip>
           ))}

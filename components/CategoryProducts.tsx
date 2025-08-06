@@ -3,7 +3,7 @@ import { Category, Product } from "@/sanity.types";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { client } from "@/sanity/lib/client";
+import { backendClient } from "@/sanity/lib/backendClient";
 import { AnimatePresence, motion } from "motion/react";
 import { Loader2 } from "lucide-react";
 import NoProductAvailable from "./NoProductAvailable";
@@ -31,7 +31,7 @@ const CategoryProducts = ({ categories, slug }: Props) => {
         *[_type == 'product' && references(*[_type == "category" && slug.current == $categorySlug]._id)] | order(name asc){
         ...,"categories": categories[]->title}
       `;
-      const data = await client.fetch(query, { categorySlug });
+      const data = await backendClient.fetch(query, { categorySlug });
       setProducts(data);
     } catch (error) {
       console.error("Error fetching products:", error);

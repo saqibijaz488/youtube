@@ -74,7 +74,12 @@
     "share": "Share",
     "characteristics": "Characteristics",
     "collection": "Collection",
-    "type": "Type"
+    "type": "Type",
+    "noProductAvailable": "No Product Available",
+    "noProductsMatching": "We're sorry, but there are no products matching on",
+    "criteriaAtMoment": "criteria at the moment.",
+    "restockingSoon": "We're restocking shortly",
+    "checkBackLater": "Please check back later or explore our other product categories."
   },
   "cart": {
     "title": "Shopping Cart",
@@ -93,8 +98,22 @@
     "stripeDescription": "Secure payment with Stripe",
     "placeOrder": "Place Order",
     "processingOrder": "Processing Order...",
+    "continueShopping": "Continue Shopping",
+    "emptyCartTitle": "Your cart is feeling lonely",
+    "emptyCartMessage": "It looks like you haven't added anything to your cart yet. Let's change that and find some amazing products for you!",
+    "addToFavorite": "Add to Favorite",
+    "deleteProduct": "Delete product",
+    "productDeleted": "Product deleted successfully!",
+    "cartResetSuccess": "Cart reset successfully!",
     "selectPaymentMethod": "Please select a payment method",
-    "selectAddress": "Please select a delivery address"
+    "selectAddress": "Please select a delivery address",
+    "pleaseWait": "Please wait...",
+    "variant": "Variant",
+    "status": "Status",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "total": "Total"
   },
   "checkout": {
     "title": "Checkout",
@@ -102,6 +121,7 @@
     "shippingDetails": "Shipping Details",
     "paymentDetails": "Payment Details",
     "orderReview": "Order Review",
+    "backToCart": "Back to Cart",
     "firstName": "First Name",
     "lastName": "Last Name",
     "email": "Email",
@@ -115,7 +135,8 @@
     "cardNumber": "Card Number",
     "expiryDate": "Expiry Date",
     "cvv": "CVV",
-    "cardholderName": "Cardholder Name"
+    "cardholderName": "Cardholder Name",
+    "addressName": "Address Name"
   },
   "orders": {
     "title": "My Orders",
@@ -132,7 +153,15 @@
     "browseProducts": "Browse Products",
     "orderDetails": "Order Details",
     "downloadInvoice": "Download Invoice",
-    "clickForDetails": "Click to see order details"
+    "clickForDetails": "Click to see order details",
+    "clickToSeeOrderDetails": "Click to see order details",
+    "product": "Product",
+    "quantity": "Quantity",
+    "price": "Price",
+    "discount": "Discount",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "deleteMethodForAdmin": "Delete method applied for Admin"
   },
   "wishlist": {
     "title": "Wishlist",
@@ -150,7 +179,8 @@
     "backToBlog": "Back to blog",
     "readMore": "Read More",
     "author": "Author",
-    "publishedOn": "Published on"
+    "publishedOn": "Published on",
+    "blogImage": "Blog Image"
   },
   "shop": {
     "title": "Shop",
@@ -186,7 +216,24 @@
     "location": "Vilnius, Lithuania",
     "phone": "+370 5 123 4567",
     "hours": "Mon - Sat: 10:00 AM - 7:00 PM",
-    "email": "info@vilnius.com"
+    "email": "info@vilnius.com",
+    "quickLinksData": {
+      "aboutus": "About us",
+      "contactus": "Contact us",
+      "terms&conditions": "Terms & Conditions",
+      "privacypolicy": "Privacy Policy",
+      "faqs": "FAQs",
+      "help": "Help"
+    },
+    "categoriesData": {
+      "mobiles": "Mobiles",
+      "appliances": "Appliances",
+      "smartphones": "Smartphones",
+      "airconditioners": "Air Conditioners",
+      "washingmachine": "Washing Machine",
+      "kitchenappliances": "Kitchen Appliances",
+      "gadgetaccessories": "Gadget Accessories"
+    }
   },
   "auth": {
     "welcomeBack": "Welcome Back!",
@@ -237,12 +284,20 @@
     "mens": "Mens",
     "women": "Women",
     "kids": "Kids",
+    "gadget": "Gadget",
+    "appliances": "Appliances",
+    "refrigerators": "Refrigerators",
     "others": "Others"
   },
   "homeCategories": {
     "popularCategories": "Popular Categories",
     "itemsAvailable": "items available",
+    "gadget": "Gadget",
+    "appliances": "Appliances",
+    "refrigerators": "Refrigerators",
+    "others": "Others",
+    "women": "Women",
     "men": "Men",
-    "women": "Women"
+    "default": "Category"
   }
 }

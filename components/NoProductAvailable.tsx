@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const NoProductAvailable = ({
   selectedTab,
@@ -11,6 +12,7 @@ const NoProductAvailable = ({
   selectedTab?: string;
   className?: string;
 }) => {
+  const t = useTranslations("product");
   return (
     <div
       className={cn(
@@ -24,7 +26,7 @@ const NoProductAvailable = ({
         transition={{ duration: 0.5 }}
       >
         <h2 className="text-2xl font-bold text-gray-800">
-          No Product Available
+          {t("noProductAvailable")}
         </h2>
       </motion.div>
 
@@ -34,11 +36,11 @@ const NoProductAvailable = ({
         transition={{ delay: 0.2, duration: 0.5 }}
         className="text-gray-600"
       >
-        We&apos;re sorry, but there are no products matching on{" "}
+        {t("noProductsMatching")}{" "}
         <span className="text-base font-semibold text-darkColor">
           {selectedTab}
         </span>{" "}
-        criteria at the moment.
+        {t("criteriaAtMoment")}
       </motion.p>
 
       <motion.div
@@ -47,7 +49,7 @@ const NoProductAvailable = ({
         className="flex items-center space-x-2 text-shop_dark_green"
       >
         <Loader2 className="w-5 h-5 animate-spin" />
-        <span>We&apos;re restocking shortly</span>
+        <span>{t("restockingSoon")}</span>
       </motion.div>
 
       <motion.p
@@ -56,7 +58,7 @@ const NoProductAvailable = ({
         transition={{ delay: 0.4, duration: 0.5 }}
         className="text-sm text-gray-500"
       >
-        Please check back later or explore our other product categories.
+        {t("checkBackLater")}
       </motion.p>
     </div>
   );

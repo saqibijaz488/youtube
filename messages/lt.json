@@ -74,7 +74,12 @@
     "share": "Dalintis",
     "characteristics": "Charakteristikos",
     "collection": "Kolekcija",
-    "type": "Tipas"
+    "type": "Tipas",
+    "noProductAvailable": "Nėra prekių",
+    "noProductsMatching": "Atsiprašome, bet šiuo metu nėra prekių, atitinkančių",
+    "criteriaAtMoment": "kriterijus.",
+    "restockingSoon": "Netrukus papildysime atsargas",
+    "checkBackLater": "Prašome užsukti vėliau arba peržiūrėti kitas prekių kategorijas."
   },
   "cart": {
     "title": "Pirkinių krepšelis",
@@ -93,8 +98,22 @@
     "stripeDescription": "Saugus mokėjimas su Stripe",
     "placeOrder": "Pateikti užsakymą",
     "processingOrder": "Apdorojamas užsakymas...",
+    "continueShopping": "Tęsti apsipirkimą",
+    "emptyCartTitle": "Jūsų krepšelis jaučiasi vienišas",
+    "emptyCartMessage": "Atrodo, kad dar nieko neįdėjote į krepšelį. Pakeiskime tai ir raskime jums nuostabių produktų!",
+    "addToFavorite": "Pridėti į mėgstamus",
+    "deleteProduct": "Ištrinti produktą",
+    "productDeleted": "Produktas sėkmingai ištrintas!",
+    "cartResetSuccess": "Krepšelis sėkmingai išvalytas!",
     "selectPaymentMethod": "Pasirinkite mokėjimo būdą",
-    "selectAddress": "Pasirinkite pristatymo adresą"
+    "selectAddress": "Pasirinkite pristatymo adresą",
+    "pleaseWait": "Prašome palaukti...",
+    "variant": "Variantas",
+    "status": "Būsena",
+    "quantity": "Kiekis",
+    "subtotal": "Tarpinė suma",
+    "discount": "Nuolaida",
+    "total": "Iš viso"
   },
   "checkout": {
     "title": "Apmokėjimas",
@@ -102,6 +121,7 @@
     "shippingDetails": "Pristatymo duomenys",
     "paymentDetails": "Mokėjimo duomenys",
     "orderReview": "Užsakymo peržiūra",
+    "backToCart": "Grįžti į krepšelį",
     "firstName": "Vardas",
     "lastName": "Pavardė",
     "email": "El. paštas",
@@ -115,7 +135,8 @@
     "cardNumber": "Kortelės numeris",
     "expiryDate": "Galiojimo data",
     "cvv": "CVV",
-    "cardholderName": "Kortelės savininko vardas"
+    "cardholderName": "Kortelės savininko vardas",
+    "addressName": "Adreso pavadinimas"
   },
   "orders": {
     "title": "Mano užsakymai",
@@ -132,7 +153,15 @@
     "browseProducts": "Naršyti prekes",
     "orderDetails": "Užsakymo detalės",
     "downloadInvoice": "Atsisiųsti sąskaitą",
-    "clickForDetails": "Spustelėkite, kad pamatytumėte užsakymo detales"
+    "clickForDetails": "Spustelėkite, kad pamatytumėte užsakymo detales",
+    "clickToSeeOrderDetails": "Spustelėkite, kad pamatytumėte užsakymo detales",
+    "product": "Produktas",
+    "quantity": "Kiekis",
+    "price": "Kaina",
+    "discount": "Nuolaida",
+    "subtotal": "Tarpinė suma",
+    "total": "Iš viso",
+    "deleteMethodForAdmin": "Ištrynimo metodas taikomas administratoriui"
   },
   "wishlist": {
     "title": "Pageidavimų sąrašas",
@@ -150,7 +179,8 @@
     "backToBlog": "Grįžti į tinklaraštį",
     "readMore": "Skaityti daugiau",
     "author": "Autorius",
-    "publishedOn": "Paskelbta"
+    "publishedOn": "Paskelbta",
+    "blogImage": "Tinklaraščio nuotrauka"
   },
   "shop": {
     "title": "Parduotuvė",
@@ -186,7 +216,24 @@
     "location": "Vilnius, Lietuva",
     "phone": "+370 5 123 4567",
     "hours": "Pr - Št: 10:00 - 19:00",
-    "email": "info@vilnius.com"
+    "email": "info@vilnius.com",
+    "quickLinksData": {
+      "aboutus": "Apie mus",
+      "contactus": "Susisiekite su mumis",
+      "terms&conditions": "Taisyklės ir sąlygos",
+      "privacypolicy": "Privatumo politika",
+      "faqs": "DUK",
+      "help": "Pagalba"
+    },
+    "categoriesData": {
+      "mobiles": "Mobilieji telefonai",
+      "appliances": "Buitinė technika",
+      "smartphones": "Išmanieji telefonai",
+      "airconditioners": "Oro kondicionieriai",
+      "washingmachine": "Skalbimo mašinos",
+      "kitchenappliances": "Virtuvės įranga",
+      "gadgetaccessories": "Įrenginių priedai"
+    }
   },
   "auth": {
     "welcomeBack": "Sveiki sugrįžę!",
@@ -234,15 +281,23 @@
     "selectLanguage": "Pasirinkti kalbą"
   },
   "productType": {
-    "mens": "Vyrai",
-    "women": "Moterys",
-    "kids": "Vaikai",
+    "mens": "Vyrams",
+    "women": "Moterims",
+    "kids": "Vaikams",
+    "gadget": "Įrenginys",
+    "appliances": "Prietaisai",
+    "refrigerators": "Šaldytuvai",
     "others": "Kita"
   },
     "homeCategories": {
       "popularCategories": "Populiarios kategorijos",
       "itemsAvailable": "prekės pasiekiamos",
-      "men": "Vyrai",
-    "women": "Moterys"
+      "gadget": "Įrenginys",
+      "appliances": "Prietaisai",
+      "refrigerators": "Šaldytuvai",
+      "others": "Kita",
+      "women": "Moterims",
+      "men": "Vyrams",
+      "default": "Kategorija"
     }
 }

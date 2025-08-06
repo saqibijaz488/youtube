@@ -16,7 +16,14 @@ const HomeCategories = ({ categories }: { categories: Category[] }) => {
       <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {categories?.map((category) => {
           // 🛠 Agar Men / Women h to translation use hoga
-          const translatedTitle = t(category?.title?.toLowerCase() || "default");
+          // Add fallback to prevent missing translation errors
+          let translatedTitle;
+          try {
+            translatedTitle = t(category?.title?.toLowerCase() || "default");
+          } catch (error) {
+            // If translation is missing, use the original title
+            translatedTitle = category?.title || "Category";
+          }
 
           return (
             <div

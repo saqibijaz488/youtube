@@ -1,44 +1,47 @@
+"use client";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 interface ContactItemData {
-  title: string;
-  subtitle: string;
+  titleKey: string;
+  subtitleKey: string;
   icon: React.ReactNode;
 }
 
-const data: ContactItemData[] = [
-  {
-    title: "Visit Us",
-    subtitle: "New Orlean, USA",
-    icon: (
-      <MapPin className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
-    ),
-  },
-  {
-    title: "Call Us",
-    subtitle: "+12 958 648 597",
-    icon: (
-      <Phone className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
-    ),
-  },
-  {
-    title: "Working Hours",
-    subtitle: "Mon - Sat: 10:00 AM - 7:00 PM",
-    icon: (
-      <Clock className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
-    ),
-  },
-  {
-    title: "Email Us",
-    subtitle: "Shopcart@gmail.com",
-    icon: (
-      <Mail className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
-    ),
-  },
-];
-
 const FooterTop = () => {
+  const t = useTranslations("footer");
+  
+  const data: ContactItemData[] = [
+    {
+      titleKey: "visitUs",
+      subtitleKey: "location",
+      icon: (
+        <MapPin className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
+      ),
+    },
+    {
+      titleKey: "callUs",
+      subtitleKey: "phone",
+      icon: (
+        <Phone className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
+      ),
+    },
+    {
+      titleKey: "workingHours",
+      subtitleKey: "hours",
+      icon: (
+        <Clock className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
+      ),
+    },
+    {
+      titleKey: "emailUs",
+      subtitleKey: "email",
+      icon: (
+        <Mail className="h-6 w-6 text-gray-600 group-hover:text-primary transition-colors" />
+      ),
+    },
+  ];
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 border-b">
       {data?.map((item, index) => (
@@ -49,11 +52,9 @@ const FooterTop = () => {
           {item?.icon}
           <div>
             <h3 className="font-semibold text-gray-900 group-hover:text-black hoverEffect">
-              {item?.title}
+              {t(item?.titleKey)}
             </h3>
-            <p className="text-gray-600 text-sm mt-1 group-hover:text-gray-900 hoverEffect">
-              {item?.subtitle}
-            </p>
+            <p className="text-sm text-gray-600">{t(item?.subtitleKey)}</p>
           </div>
         </div>
       ))}

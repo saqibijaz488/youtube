@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  createCheckoutSession,
-  Metadata,
-} from "@/actions/createCheckoutSession";
+// Removed createCheckoutSession import as it's now used in checkout page
 import Container from "@/components/Container";
 import EmptyCart from "@/components/EmptyCart";
 import NoAccess from "@/components/NoAccess";
@@ -22,8 +19,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Address } from "@/sanity.types";
-import { client } from "@/sanity/lib/client";
+// Address type import removed as it's now used in checkout page
+// client import removed as it's no longer needed for fetching addresses
 import { urlFor } from "@/sanity/lib/image";
 import useStore from "@/store";
 import { useAuth, useUser } from "@clerk/nextjs";
@@ -32,8 +29,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 const CartPage = () => {
+  const t = useTranslations("cart");
   const {
     deleteCartProduct,
     getTotalPrice,
@@ -45,59 +44,21 @@ const CartPage = () => {
   const groupedItems = useStore((state) => state.getGroupedItems());
   const { isSignedIn } = useAuth();
   const { user } = useUser();
-  const [addresses, setAddresses] = useState<Address[] | null>(null);
-  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
-
-  const fetchAddresses = async () => {
-    setLoading(true);
-    try {
-      const query = `*[_type=="address"] | order(publishedAt desc)`;
-      const data = await client.fetch(query);
-      setAddresses(data);
-      const defaultAddress = data.find((addr: Address) => addr.default);
-      if (defaultAddress) {
-        setSelectedAddress(defaultAddress);
-      } else if (data.length > 0) {
-        setSelectedAddress(data[0]); // Optional: select first address if no default
-      }
-    } catch (error) {
-      console.log("Addresses fetching error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    fetchAddresses();
-  }, []);
+  // Cart page no longer needs to fetch addresses or handle payment methods
+  // as these are now handled in the checkout page
   const handleResetCart = () => {
     const confirmed = window.confirm(
-      "Are you sure you want to reset your cart?"
+      t("resetConfirm")
     );
     if (confirmed) {
       resetCart();
-      toast.success("Cart reset successfully!");
+      toast.success(t("cartResetSuccess"));
     }
   };
 
-  const handleCheckout = async () => {
-    setLoading(true);
-    try {
-      const metadata: Metadata = {
-        orderNumber: crypto.randomUUID(),
-        customerName: user?.fullName ?? "Unknown",
-        customerEmail: user?.emailAddresses[0]?.emailAddress ?? "Unknown",
-        clerkUserId: user?.id,
-        address: selectedAddress,
-      };
-      const checkoutUrl = await createCheckoutSession(groupedItems, metadata);
-      if (checkoutUrl) {
-        window.location.href = checkoutUrl;
-      }
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-    } finally {
-      setLoading(false);
-    }
+  const handleCheckout = () => {
+    // Simply navigate to the checkout page
+    window.location.href = "/checkout";
   };
   return (
     <div className="bg-gray-50 pb-52 md:pb-10">
@@ -107,7 +68,7 @@ const CartPage = () => {
             <>
               <div className="flex items-center gap-2 py-5">
                 <ShoppingBag className="text-darkColor" />
-                <Title>Shopping Cart</Title>
+                <Title>{t("title")}</Title>
               </div>
               <div className="grid lg:grid-cols-3 md:gap-8">
                 <div className="lg:col-span-2 rounded-lg">
@@ -142,13 +103,13 @@ const CartPage = () => {
                                   {product?.name}
                                 </h2>
                                 <p className="text-sm capitalize">
-                                  Variant:{" "}
+                                  {t("variant")}:{" "}
                                   <span className="font-semibold">
                                     {product?.variant}
                                   </span>
                                 </p>
                                 <p className="text-sm capitalize">
-                                  Status:{" "}
+                                  {t("status")}:{" "}
                                   <span className="font-semibold">
                                     {product?.status}
                                   </span>
@@ -164,7 +125,7 @@ const CartPage = () => {
                                       />
                                     </TooltipTrigger>
                                     <TooltipContent className="font-bold">
-                                      Add to Favorite
+                                      {t("addToFavorite")}
                                     </TooltipContent>
                                   </Tooltip>
                                   <Tooltip>
@@ -173,14 +134,14 @@ const CartPage = () => {
                                         onClick={() => {
                                           deleteCartProduct(product?._id);
                                           toast.success(
-                                            "Product deleted successfully!"
+                                            t("productDeleted")
                                           );
                                         }}
                                         className="w-4 h-4 md:w-5 md:h-5 mr-1 text-gray-500 hover:text-red-600 hoverEffect"
                                       />
                                     </TooltipTrigger>
                                     <TooltipContent className="font-bold bg-red-600">
-                                      Delete product
+                                      {t("deleteProduct")}
                                     </TooltipContent>
                                   </Tooltip>
                                 </TooltipProvider>
@@ -202,7 +163,7 @@ const CartPage = () => {
                       className="m-5 font-semibold"
                       variant="destructive"
                     >
-                      Reset Cart
+                      {t("resetCart")}
                     </Button>
                   </div>
                 </div>
@@ -210,22 +171,22 @@ const CartPage = () => {
                   <div className="lg:col-span-1">
                     <div className="hidden md:inline-block w-full bg-white p-6 rounded-lg border">
                       <h2 className="text-xl font-semibold mb-4">
-                        Order Summary
+                        {t("orderSummary")}
                       </h2>
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                          <span>SubTotal</span>
+                          <span>{t("subtotal")}</span>
                           <PriceFormatter amount={getSubTotalPrice()} />
                         </div>
                         <div className="flex items-center justify-between">
-                          <span>Discount</span>
+                          <span>{t("discount")}</span>
                           <PriceFormatter
                             amount={getSubTotalPrice() - getTotalPrice()}
                           />
                         </div>
                         <Separator />
                         <div className="flex items-center justify-between font-semibold text-lg">
-                          <span>Total</span>
+                          <span>{t("total")}</span>
                           <PriceFormatter
                             amount={getTotalPrice()}
                             className="text-lg font-bold text-black"
@@ -237,73 +198,31 @@ const CartPage = () => {
                           disabled={loading}
                           onClick={handleCheckout}
                         >
-                          {loading ? "Please wait..." : "Proceed to Checkout"}
+                          {loading ? t("pleaseWait") : t("proceedToCheckout")}
                         </Button>
                       </div>
                     </div>
-                    {addresses && (
-                      <div className="bg-white rounded-md mt-5">
-                        <Card>
-                          <CardHeader>
-                            <CardTitle>Delivery Address</CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <RadioGroup
-                              defaultValue={addresses
-                                ?.find((addr) => addr.default)
-                                ?._id.toString()}
-                            >
-                              {addresses?.map((address) => (
-                                <div
-                                  key={address?._id}
-                                  onClick={() => setSelectedAddress(address)}
-                                  className={`flex items-center space-x-2 mb-4 cursor-pointer ${selectedAddress?._id === address?._id && "text-shop_dark_green"}`}
-                                >
-                                  <RadioGroupItem
-                                    value={address?._id.toString()}
-                                  />
-                                  <Label
-                                    htmlFor={`address-${address?._id}`}
-                                    className="grid gap-1.5 flex-1"
-                                  >
-                                    <span className="font-semibold">
-                                      {address?.name}
-                                    </span>
-                                    <span className="text-sm text-black/60">
-                                      {address.address}, {address.city},{" "}
-                                      {address.state} {address.zip}
-                                    </span>
-                                  </Label>
-                                </div>
-                              ))}
-                            </RadioGroup>
-                            <Button variant="outline" className="w-full mt-4">
-                              Add New Address
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    )}
+                    {/* Address and payment method selection moved to checkout page */}
                   </div>
                 </div>
                 {/* Order summary for mobile view */}
                 <div className="md:hidden fixed bottom-0 left-0 w-full bg-white pt-2">
                   <div className="bg-white p-4 rounded-lg border mx-4">
-                    <h2>Order Summary</h2>
+                    <h2>{t("orderSummary")}</h2>
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <span>SubTotal</span>
+                        <span>{t("subtotal")}</span>
                         <PriceFormatter amount={getSubTotalPrice()} />
                       </div>
                       <div className="flex items-center justify-between">
-                        <span>Discount</span>
+                        <span>{t("discount")}</span>
                         <PriceFormatter
                           amount={getSubTotalPrice() - getTotalPrice()}
                         />
                       </div>
                       <Separator />
                       <div className="flex items-center justify-between font-semibold text-lg">
-                        <span>Total</span>
+                        <span>{t("total")}</span>
                         <PriceFormatter
                           amount={getTotalPrice()}
                           className="text-lg font-bold text-black"
@@ -315,7 +234,7 @@ const CartPage = () => {
                         disabled={loading}
                         onClick={handleCheckout}
                       >
-                        {loading ? "Please wait..." : "Proceed to Checkout"}
+                        {loading ? t("pleaseWait") : t("proceedToCheckout")}
                       </Button>
                     </div>
                   </div>
@@ -331,6 +250,6 @@ const CartPage = () => {
       )}
     </div>
   );
-};
+}
 
 export default CartPage;

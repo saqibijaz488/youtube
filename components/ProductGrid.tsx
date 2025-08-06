@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { motion, AnimatePresence } from "motion/react";
-import { client } from "@/sanity/lib/client";
+import { backendClient } from "@/sanity/lib/backendClient";
 import NoProductAvailable from "./NoProductAvailable";
 import { Loader2 } from "lucide-react";
 import Container from "./Container";
@@ -30,7 +30,7 @@ const ProductGrid = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await client.fetch(query, params);
+        const response = await backendClient.fetch(query, params);
         setProducts(response);
       } catch (error) {
         console.log("Product fetching Error", error);

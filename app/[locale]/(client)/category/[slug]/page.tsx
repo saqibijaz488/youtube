@@ -7,10 +7,10 @@ import React from "react";
 const CategoryPage = async ({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) => {
   const categories = await getCategories();
-  const { slug } = await params;
+  const { slug } = params;
   return (
     <div className="py-10">
       <Container>

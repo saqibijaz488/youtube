@@ -115,7 +115,7 @@ async function createOrderInSanity(
     amountDiscount: total_details?.amount_discount
       ? total_details.amount_discount / 100
       : 0,
-
+    paymentMethod: "stripe",
     products: sanityProducts,
     totalPrice: amount_total ? amount_total / 100 : 0,
     status: "paid",

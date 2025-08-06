@@ -1,4 +1,4 @@
-  import AddToCartButton from "@/components/AddToCartButton";
+import AddToCartButton from "@/components/AddToCartButton";
   import Container from "@/components/Container";
   import FavoriteButton from "@/components/FavoriteButton";
   import ImageView from "@/components/ImageView";
@@ -14,11 +14,11 @@
   import { TbTruckDelivery } from "react-icons/tb";
 
   const SingleProductPage = async ({
-    params,
-  }: {
-    params: Promise<{ slug: string }>;
-  }) => {
-    const { slug } = await params;
+  params,
+}: {
+  params: { slug: string };
+}) => {
+  const { slug } = params;
     const product = await getProductBySlug(slug);
     if (!product) {
       return notFound();

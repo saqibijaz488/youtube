@@ -148,6 +148,18 @@ export const orderType = defineType({
       type: "datetime",
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: "paymentMethod",
+      title: "Payment Method",
+      type: "string",
+      options: {
+        list: [
+          { title: "Cash on Delivery", value: "cod" },
+          { title: "Stripe Payment", value: "stripe" },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
   ],
   preview: {
     select: {

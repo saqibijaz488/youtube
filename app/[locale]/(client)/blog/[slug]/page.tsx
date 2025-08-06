@@ -18,9 +18,9 @@ import React from "react";
 const SingleBlogPage = async ({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) => {
-  const { slug } = await params;
+  const { slug } = params;
   const blog: SINGLE_BLOG_QUERYResult = await getSingleBlog(slug);
   if (!blog) return notFound();
 
@@ -34,7 +34,7 @@ const SingleBlogPage = async ({
               alt={blog.title || "Blog Image"}
               width={800}
               height={800}
-              className="w-full max-h-[500px] object-cover rounded-lg"
+              className="w-full max-h-[500p Bbje ct-covr rounded-lg"
             />
           )}
           <div>

@@ -1,21 +1,24 @@
+'use client';
+
 import { Toaster } from "react-hot-toast";
 import { NextIntlClientProvider } from "next-intl";
+import enMessages from '../../messages/en.json';
+import ltMessages from '../../messages/lt.json';
+import { use } from 'react';
 
-export default async function LocaleLayout({
+export default function LocaleLayout({
   children,
   params
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: any;
 }) {
-  const locale = params?.locale || "en";
-
-  let messages;
-  try {
-    messages = (await import(`../../messages/${locale}.json`)).default;
-  } catch (error) {
-    messages = (await import(`../../messages/en.json`)).default;
-  }
+  // Properly unwrap params using React.use()
+  const unwrappedParams = 'then' in params ? use(params) : params;
+  const locale = unwrappedParams.locale || "en";
+  
+  // Use pre-imported messages
+  const messages = locale === 'lt' ? ltMessages : enMessages;
 
   return (
     // ✅ ❌ HTML aur BODY yahan nahi honge

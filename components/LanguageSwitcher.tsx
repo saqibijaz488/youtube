@@ -1,11 +1,13 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
+import { useTranslations } from "next-intl";
 
 const LanguageSwitcher = ({ className }: { className?: string }) => {
   const router = useRouter();
   const pathname = usePathname();
   const currentLocale = pathname.startsWith("/lt") ? "lt" : "en";
+  const t = useTranslations("language");
 
   const switchLanguage = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newLocale = event.target.value;
@@ -24,8 +26,8 @@ const LanguageSwitcher = ({ className }: { className?: string }) => {
       onChange={switchLanguage}
       className={`w-20 h-8 rounded-md  bg-[#3b9c3c] text-white text-sm font-semibold px-2 focus:outline-none focus:ring-2 focus:ring-green-500 ${className}`}
     >
-      <option value="en" className="text-black">EN</option>
-      <option value="lt" className="text-black">LT</option>
+      <option value="en" className="text-black">{t("english")}</option>
+      <option value="lt" className="text-black">{t("lithuanian")}</option>
     </select>
   );
 };
