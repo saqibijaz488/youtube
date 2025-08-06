@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { backendClient } from '@/sanity/lib/backendClient';
+import { auth } from '@clerk/nextjs/server';
 
 export async function POST(req: NextRequest) {
   try {
+    // Get the authenticated user
+    const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
     const { 
       orderNumber, 
@@ -23,13 +33,21 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Validate that the user can only create orders for themselves
+    if (clerkUserId && clerkUserId !== userId) {
+      return NextResponse.json(
+        { error: 'Unauthorized to create order for another user' },
+        { status: 403 }
+      );
+    }
+
     // Create order in Sanity
     const order = await backendClient.create({
       _type: "order",
       orderNumber,
       customerName,
       email,
-      clerkUserId: clerkUserId || "unknown",
+      clerkUserId: userId,
       stripeCustomerId: email, // For COD, use email as customer ID
       stripePaymentIntentId: paymentMethod === "cod" ? "cod-payment" : "stripe-payment",
       currency: "usd",
@@ -57,6 +75,19 @@ export async function POST(req: NextRequest) {
       } : null,
     });
 
+    // Update stock levels for products
+    for (const item of products) {
+      try {
+        const product = await backendClient.getDocument(item.product._id);
+        if (product && typeof product.stock === 'number') {
+          const newStock = Math.max(product.stock - item.quantity, 0);
+          await backendClient.patch(item.product._id).set({ stock: newStock }).commit();
+        }
+      } catch (error) {
+        console.error(`Failed to update stock for product ${item.product._id}:`, error);
+      }
+    }
+
     return NextResponse.json({ 
       success: true, 
       order 
@@ -66,7 +97,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       { 
         error: error.message,
-        details: 'Failed to create order. Please check your Sanity configuration.'
+        details: 'Failed to create order. Please try again.'
       },
       { status: 500 }
     );

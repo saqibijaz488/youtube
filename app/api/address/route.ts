@@ -1,10 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { backendClient } from '@/sanity/lib/backendClient';
+import { auth } from '@clerk/nextjs/server';
 
 export async function POST(req: NextRequest) {
   try {
+    // Get the authenticated user
+    const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
-    const { name, email, phone, address, city, state, zip, default: isDefault } = body;
+    const { name, email, phone, address, city, state, zip, default: isDefault, clerkUserId } = body;
 
     // Validate required fields
     if (!name || !address || !city || !state || !zip) {
@@ -14,10 +24,26 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Validate state format (2 uppercase letters)
+    if (!/^[A-Z]{2}$/.test(state)) {
+      return NextResponse.json(
+        { error: 'State must be 2 uppercase letters (e.g., NY, CA)' },
+        { status: 400 }
+      );
+    }
+
+    // Validate ZIP code format
+    if (!/^\d{5}(-\d{4})?$/.test(zip)) {
+      return NextResponse.json(
+        { error: 'Please enter a valid ZIP code (e.g., 12345 or 12345-6789)' },
+        { status: 400 }
+      );
+    }
+
     // If this is set as default, update other addresses to not be default
     if (isDefault) {
-      const query = `*[_type == "address" && default == true]`;
-      const defaultAddresses = await backendClient.fetch(query);
+      const query = `*[_type == "address" && default == true && clerkUserId == $userId]`;
+      const defaultAddresses = await backendClient.fetch(query, { userId });
       
       for (const addr of defaultAddresses) {
         await backendClient
@@ -38,6 +64,7 @@ export async function POST(req: NextRequest) {
       state,
       zip,
       default: isDefault,
+      clerkUserId: userId,
       createdAt: new Date().toISOString(),
     });
 
@@ -50,7 +77,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       { 
         error: error.message,
-        details: 'Failed to create address. Please check your Sanity configuration.'
+        details: 'Failed to create address. Please try again.'
       },
       { status: 500 }
     );
@@ -59,8 +86,17 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    const query = `*[_type=="address"] | order(publishedAt desc)`;
-    const addresses = await backendClient.fetch(query);
+    // Get the authenticated user
+    const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
+    const query = `*[_type=="address" && clerkUserId == $userId] | order(createdAt desc)`;
+    const addresses = await backendClient.fetch(query, { userId });
     
     return NextResponse.json({ 
       success: true, 

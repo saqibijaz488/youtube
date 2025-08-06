@@ -53,6 +53,11 @@ const CheckoutPage = () => {
       const result = await response.json();
       
       if (!response.ok) {
+        if (response.status === 401) {
+          console.log("User not authenticated");
+          setAddresses([]);
+          return;
+        }
         throw new Error(result.error || 'Failed to fetch addresses');
       }
       
@@ -64,7 +69,8 @@ const CheckoutPage = () => {
         setSelectedAddress(result.addresses[0]);
       }
     } catch (error) {
-      console.log("Addresses fetching error:", error);
+      console.error("Addresses fetching error:", error);
+      setAddresses([]);
     } finally {
       setLoading(false);
     }
@@ -120,6 +126,10 @@ const CheckoutPage = () => {
           if (!response.ok) {
             throw new Error(result.error || 'Failed to create order');
           }
+
+          // Clear the cart after successful order
+          const { resetCart } = useStore.getState();
+          resetCart();
 
           // Redirect to success page with order details
           window.location.href = `/success?orderNumber=${orderNumber}&paymentMethod=cod&orderId=${result.order._id}`;

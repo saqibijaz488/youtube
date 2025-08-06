@@ -6,9 +6,9 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Address } from "@/sanity.types";
-import { backendClient } from "@/sanity/lib/backendClient";
 import toast from "react-hot-toast";
 import { useTranslations } from "next-intl";
+import { useUser } from "@clerk/nextjs";
 
 interface AddressFormDialogProps {
   isOpen: boolean;
@@ -25,11 +25,12 @@ const AddressFormDialog: React.FC<AddressFormDialogProps> = ({
 }) => {
   const t = useTranslations("checkout");
   const cartT = useTranslations("cart");
+  const { user } = useUser();
   
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<Partial<Address>>({
     name: existingAddress?.name || "",
-    email: existingAddress?.email || "",
+    email: existingAddress?.email || user?.emailAddresses?.[0]?.emailAddress || "",
     phone: existingAddress?.phone || "",
     address: existingAddress?.address || "",
     city: existingAddress?.city || "",
@@ -102,6 +103,7 @@ const AddressFormDialog: React.FC<AddressFormDialogProps> = ({
             state: formData.state,
             zip: formData.zip,
             default: formData.default,
+            clerkUserId: user?.id,
           }),
         });
 
@@ -117,6 +119,18 @@ const AddressFormDialog: React.FC<AddressFormDialogProps> = ({
       // Refresh the addresses list
       onAddressAdded();
       onClose();
+      
+      // Reset form
+      setFormData({
+        name: "",
+        email: user?.emailAddresses?.[0]?.emailAddress || "",
+        phone: "",
+        address: "",
+        city: "",
+        state: "",
+        zip: "",
+        default: false,
+      });
     } catch (error: any) {
       console.error("Error saving address:", error);
       toast.error(error.message || "Failed to save address");

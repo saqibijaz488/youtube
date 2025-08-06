@@ -20,6 +20,13 @@ export const addressType = defineType({
       type: "email",
     }),
     defineField({
+      name: "clerkUserId",
+      title: "Clerk User ID",
+      type: "string",
+      description: "The Clerk user ID who owns this address",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "phone",
       title: "Phone Number",
       type: "string",

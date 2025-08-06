@@ -115,7 +115,7 @@ const getMyOrders = async (userId: string) => {
     const orders = await sanityFetch({
       query: MY_ORDERS_QUERY,
       params: { userId },
-      next: { revalidate: 5 },   // ✅ orders thoda jaldi refresh honge
+      next: { revalidate: 0 },   // ✅ Always fetch fresh orders
     });
     return orders?.data || null;
   } catch (error) {
